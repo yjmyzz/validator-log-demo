@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{ABSOLUTE} &lt;%c&gt; %5p [%t]: %m%n"/>
+        </Console>
+
+        <RollingRandomAccessFile name="SERVICE_LOG_FILE" fileName="logs/demo/service.log"
+                                 filePattern="logs/demo/$${date:yyyy-MM}/service-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout pattern="%d{ABSOLUTE} &lt;%c&gt; %5p [%t]: %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+            </Policies>
+            <DefaultRolloverStrategy/>
+        </RollingRandomAccessFile>
+
+        <RollingRandomAccessFile name="AOP_LOG_FILE" fileName="logs/demo/aop.log"
+                                 filePattern="logs/demo/$${date:yyyy-MM}/aop-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout pattern="%d{ABSOLUTE} &lt;%c&gt; %5p [%t]: %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+            </Policies>
+            <DefaultRolloverStrategy/>
+        </RollingRandomAccessFile>
+
+    </Appenders>
+
+    <Loggers>
+
+        <Root level="WARN">
+            <AppenderRef ref="STDOUT"/>
+            <AppenderRef ref="SERVICE_LOG_FILE"/>
+        </Root>
+
+        <Logger name="yjmyzz.service" level="WARN" additivity="false">
+            <AppenderRef ref="STDOUT"/>
+            <AppenderRef ref="SERVICE_LOG_FILE"/>
+        </Logger>
+
+        <Logger name="yjmyzz.aop" level="WARN" additivity="false">
+            <AppenderRef ref="STDOUT"/>
+            <AppenderRef ref="AOP_LOG_FILE"/>
+        </Logger>
+
+    </Loggers>
+
+</Configuration>
